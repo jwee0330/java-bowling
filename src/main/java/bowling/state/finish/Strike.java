@@ -1,5 +1,6 @@
 package bowling.state.finish;
 
+import bowling.score.domain.Score;
 import bowling.state.State;
 
 public class Strike extends Finished {
@@ -14,5 +15,15 @@ public class Strike extends Finished {
     @Override
     public String view() {
         return STRIKE;
+    }
+
+    @Override
+    public Score getScore() {
+        return Score.ofStrike();
+    }
+
+    @Override
+    public String toString() {
+        return "Strike{score=" + getScore() + ", view=" + view() + "}";
     }
 }

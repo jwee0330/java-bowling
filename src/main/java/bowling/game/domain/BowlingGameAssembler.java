@@ -8,6 +8,6 @@ public class BowlingGameAssembler {
     }
 
     public static BowlingGameDto assemble(BowlingGame bowlingGame) {
-        return new BowlingGameDto(bowlingGame.getGame());
+        return new BowlingGameDto(bowlingGame.getGame(), bowlingGame.getScores());
     }
 }

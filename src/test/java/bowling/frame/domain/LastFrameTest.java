@@ -1,5 +1,6 @@
 package bowling.frame.domain;
 
+import bowling.pin.domain.Pin;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -12,11 +13,11 @@ class LastFrameTest {
     public void allStrikeTest() {
         Frame frame = LastFrame.of();
 
-        frame.bowl(10);
+        frame.bowl(Pin.of(10));
         assertThat(frame.isFinished()).isFalse();
-        frame.bowl(10);
+        frame.bowl(Pin.of(10));
         assertThat(frame.isFinished()).isFalse();
-        frame.bowl(10);
+        frame.bowl(Pin.of(10));
         assertThat(frame.isFinished()).isTrue();
     }
 
@@ -25,11 +26,11 @@ class LastFrameTest {
     public void secondStrikeTest() {
         Frame frame = LastFrame.of();
 
-        frame.bowl(0);
+        frame.bowl(Pin.of(0));
         assertThat(frame.isFinished()).isFalse();
-        frame.bowl(10);
+        frame.bowl(Pin.of(10));
         assertThat(frame.isFinished()).isFalse();
-        frame.bowl(10);
+        frame.bowl(Pin.of(10));
         assertThat(frame.isFinished()).isTrue();
     }
 
@@ -38,11 +39,11 @@ class LastFrameTest {
     public void secondSpareTest() {
         Frame frame = LastFrame.of();
 
-        frame.bowl(5);
+        frame.bowl(Pin.of(5));
         assertThat(frame.isFinished()).isFalse();
-        frame.bowl(5);
+        frame.bowl(Pin.of(5));
         assertThat(frame.isFinished()).isFalse();
-        frame.bowl(10);
+        frame.bowl(Pin.of(5));
         assertThat(frame.isFinished()).isTrue();
     }
 
@@ -51,9 +52,9 @@ class LastFrameTest {
     public void secondMissTest() {
         Frame frame = LastFrame.of();
 
-        frame.bowl(5);
+        frame.bowl(Pin.of(5));
         assertThat(frame.isFinished()).isFalse();
-        frame.bowl(1);
+        frame.bowl(Pin.of(1));
         assertThat(frame.isFinished()).isTrue();
     }
 
@@ -62,9 +63,9 @@ class LastFrameTest {
     public void secondGutterTest() {
         Frame frame = LastFrame.of();
 
-        frame.bowl(0);
+        frame.bowl(Pin.of(0));
         assertThat(frame.isFinished()).isFalse();
-        frame.bowl(0);
+        frame.bowl(Pin.of(0));
         assertThat(frame.isFinished()).isTrue();
     }
 

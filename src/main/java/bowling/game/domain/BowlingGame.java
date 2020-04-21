@@ -1,16 +1,19 @@
 package bowling.game.domain;
 
 import bowling.frame.domain.Frames;
+import bowling.pin.domain.Pin;
 import bowling.player.domain.Player;
+import bowling.score.domain.Score;
+import bowling.score.domain.Scores;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 public class BowlingGame {
-    private static final String ALERT_WRONG_PINS = "쓰러트린 볼링핀은 0 ~ 10 사이로 입력하세요";
-    private static final int MIN_PINS = 0;
-    private static final int MAX_PINS = 10;
 
     private final Frames game;
+    private List<Score> scores = new ArrayList<>();
 
     private BowlingGame(Frames game) {
         this.game = game;
@@ -26,18 +29,25 @@ public class BowlingGame {
     }
 
     public Frames getGame() {
-        return game;
+        return Frames.of(game);
+    }
+
+    public Scores getScores() {
+        return Scores.of(scores);
     }
 
     public boolean isDone() {
         return game.isDone();
     }
 
-    public void bowl(int felledPins) {
-        if (felledPins < MIN_PINS || felledPins > MAX_PINS) {
-            throw new IllegalArgumentException(ALERT_WRONG_PINS);
-        }
+    public void bowl(Pin felledPins) {
+        felledPins.isValidCount();
+
         game.bowl(felledPins);
+        Score score = game.getScore();
+
+        scores.add(score);
+//        System.out.println(scores);
     }
 
 }

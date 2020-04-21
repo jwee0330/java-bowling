@@ -1,5 +1,7 @@
 package bowling.state.finish;
 
+import bowling.pin.domain.Pin;
+import bowling.score.domain.Score;
 import bowling.state.State;
 import bowling.state.ready.First;
 
@@ -24,7 +26,7 @@ public class LastFrameState extends Finished {
     }
 
     @Override
-    public State bowl(int felledPins) {
+    public State bowl(Pin felledPins) {
         count.increase();
         if (isCurrentFrameStateFinished()) {
             setUp();
@@ -46,6 +48,18 @@ public class LastFrameState extends Finished {
                 .collect(Collectors.joining(DELIMITER));
     }
 
+    @Override
+    public Score getScore() {
+        if (isFinished()) {
+            int scoreTotal = states.stream()
+                    .map(State::getScore)
+                    .mapToInt(Score::getScore)
+                    .sum();
+            return Score.ofFinalFrame(scoreTotal);
+        }
+        return Score.ofScoreNotYet();
+    }
+
     private void setUp() {
         states.add(First.of());
     }
@@ -54,7 +68,7 @@ public class LastFrameState extends Finished {
         return getCurrentFrameState().isFinished();
     }
 
-    private void bowlAndReplace(int felledPins) {
+    private void bowlAndReplace(Pin felledPins) {
         states.set(currentCount(), getCurrentFrameState().bowl(felledPins));
     }
 

@@ -4,6 +4,7 @@ import bowling.frame.domain.Frame;
 import bowling.frame.domain.Frames;
 import bowling.game.dto.BowlingGameDto;
 import bowling.player.domain.Player;
+import bowling.score.domain.Scores;
 
 import java.io.PrintStream;
 import java.text.MessageFormat;
@@ -25,6 +26,9 @@ public class OutputView {
     private static final PrintStream CONSOLE = System.out;
 
     public static void print(BowlingGameDto gameDto) {
+        Scores gameDtoScores = gameDto.getScores();
+//        System.out.println(gameDtoScores);
+
         Frames game = gameDto.getFrames();
         Player player = game.getPlayer();
         List<Frame> frames = game.getFrames();

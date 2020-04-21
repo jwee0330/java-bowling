@@ -1,5 +1,7 @@
 package bowling.state.ready;
 
+import bowling.pin.domain.Pin;
+import bowling.score.domain.Score;
 import bowling.state.State;
 import bowling.state.finish.Gutter;
 import bowling.state.finish.Miss;
@@ -9,23 +11,23 @@ import static java.lang.String.valueOf;
 
 public class Second extends Ready {
 
-    private final int firstFelledPins;
+    private final Pin firstFelledPins;
 
-    private Second(int felledPins) {
+    private Second(Pin felledPins) {
         this.firstFelledPins = felledPins;
     }
 
-    public static State of(int felledPins) {
+    public static State of(Pin felledPins) {
         return new Second(felledPins);
     }
 
     @Override
-    public State bowl(int secondFelledPins) {
-        int felledPinsTotal = firstFelledPins + secondFelledPins;
-        if (felledPinsTotal == FELLED_ALL_PINS) {
+    public State bowl(Pin secondFelledPins) {
+        Pin felledPinsTotal = firstFelledPins.sum(secondFelledPins);
+        if (felledPinsTotal.isFelledAllPins()) {
             return Spare.of(firstFelledPins);
         }
-        if (felledPinsTotal == FELLED_ZERO_PINS) {
+        if (felledPinsTotal.isNotFelledPinsAtAll()) {
             return Gutter.of();
         }
         return Miss.of(firstFelledPins, secondFelledPins);
@@ -33,9 +35,15 @@ public class Second extends Ready {
 
     @Override
     public String view() {
-        if (firstFelledPins == FELLED_ZERO_PINS) {
+        if (firstFelledPins.isNotFelledPinsAtAll()) {
             return GUTTER;
         }
-        return valueOf(firstFelledPins);
+        return valueOf(firstFelledPins.getFelledPins());
     }
+
+    @Override
+    public Score getScore() {
+        return Score.ofSecond(firstFelledPins);
+    }
+
 }

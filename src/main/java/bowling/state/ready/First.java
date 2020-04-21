@@ -1,5 +1,7 @@
 package bowling.state.ready;
 
+import bowling.pin.domain.Pin;
+import bowling.score.domain.Score;
 import bowling.state.State;
 import bowling.state.finish.Strike;
 
@@ -10,8 +12,8 @@ public class First extends Ready {
     }
 
     @Override
-    public State bowl(int felledPins) {
-        if (felledPins == FELLED_ALL_PINS) {
+    public State bowl(Pin felledPins) {
+        if (felledPins.isFelledAllPins()) {
             return Strike.of();
         }
         return Second.of(felledPins);
@@ -20,5 +22,10 @@ public class First extends Ready {
     @Override
     public String view() {
         return STANDBY;
+    }
+
+    @Override
+    public Score getScore() {
+        return Score.ofFirst();
     }
 }

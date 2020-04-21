@@ -17,6 +17,10 @@ public class Player {
         return new Player(name);
     }
 
+    public static Player of(Player player) {
+        return new Player(player.getName());
+    }
+
     private void validate(String name) {
         if (Objects.isNull(name) || !pattern.matcher(name).find()) {
             throw new IllegalArgumentException("이름은 3글자로 입력해야 합니다.");

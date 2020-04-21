@@ -1,5 +1,9 @@
 package bowling.frame.domain;
 
+import bowling.pin.domain.Pin;
+import bowling.score.domain.Score;
+import bowling.state.State;
+
 public interface Frame {
 
     static Frame normal() {
@@ -10,10 +14,13 @@ public interface Frame {
         return LastFrame.of();
     }
 
-    void bowl(int felledPins);
+    State bowl(Pin felledPins);
 
     boolean isFinished();
 
     String view();
 
+    Score getScore();
+
+    Score calculateScore(Score score);
 }

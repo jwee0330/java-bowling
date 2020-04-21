@@ -1,11 +1,12 @@
 package bowling.state.finish;
 
+import bowling.pin.domain.Pin;
 import bowling.state.State;
 
 public abstract class Finished implements State {
 
     @Override
-    public State bowl(int felledPins) {
+    public State bowl(Pin felledPins) {
         throw new IllegalArgumentException();
     }
 

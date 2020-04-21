@@ -1,5 +1,6 @@
 package bowling.frame.domain;
 
+import bowling.pin.domain.Pin;
 import bowling.player.domain.Player;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,7 +13,7 @@ class FramesTest {
     @Test
     public void generateFrameTest() {
         Frames frames = Frames.init(Player.of("LJW"));
-        frames.bowl(10);
+        frames.bowl(Pin.of(10));
         assertThat(frames.getSize()).isEqualTo(2);
     }
 
@@ -20,19 +21,45 @@ class FramesTest {
     @Test
     public void isDoneTest() {
         Frames frames = Frames.init(Player.of("LJW"));
-        frames.bowl(10);
-        frames.bowl(10);
-        frames.bowl(10);
-        frames.bowl(10);
-        frames.bowl(10);
-        frames.bowl(10);
-        frames.bowl(10);
-        frames.bowl(10);
-        frames.bowl(10);
-        // 10 frame Gutter 라고 가정
-        frames.bowl(0);
-        frames.bowl(0);
+        frames.bowl(Pin.of(10));
+        frames.bowl(Pin.of(10));
+        frames.bowl(Pin.of(10));
+        frames.bowl(Pin.of(10));
+        frames.bowl(Pin.of(10));
+        frames.bowl(Pin.of(10));
+        frames.bowl(Pin.of(10));
+        frames.bowl(Pin.of(10));
+        frames.bowl(Pin.of(10));
+        // 10 frame Pin.of(Gutter) 라고 가정
+        frames.bowl(Pin.of(0));
+        frames.bowl(Pin.of(0));
         assertThat(frames.isDone()).isTrue();
+    }
+
+
+
+    @Test
+    public void test() {
+        String a = "[" +
+                "Score{score=1, remains=0}, " +
+                "Score{score=1, remains=0}, " +
+                "Score{score=1, remains=0}, " +
+                "Score{score=1, remains=0}, " +
+                "Score{score=1, remains=0}, " +
+                "Score{score=1, remains=0}, " +
+                "Score{score=1, remains=0}," +
+                " Score{score=1, remains=0}, " +
+                "Score{score=1, remains=0}, " +
+                "Score{score=1, remains=0}, " +
+                "Score{score=1, remains=0}, " +
+                "Score{score=1, remains=0}," +
+                " Score{score=1, remains=0}, " +
+                "Score{score=1, remains=0}, " +
+                "Score{score=1, remains=0}, " +
+                "Score{score=1, remains=0}, " +
+                "Score{score=1, remains=0}, " +
+                "Score{score=1, remains=0}, " +
+                "Score{score=1, remains=0}]";
     }
 
 
